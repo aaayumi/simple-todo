@@ -1,27 +1,32 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 
-function App() {
-  const [todo, setTodo] = useState([{text : 'test'},{ item: []}]);
+class App extends React.Component {
+ constructor(props) {
+   super(props);
+   this.state = {
+     text: '',
+     list: ['sample', 'sample2']
+   }
+ }
 
-  const onSubmit = event => {
+ handleSubmit = (e) =>{
+   e.preventDefault();
+   this.setState({ list:[...this.state.list, this.state.text]
+   })}
 
-    setTodo({text: ''}, {item: todo.text})
-    localStorage.setItem('todoLocalStorage', JSON.stringify(todo));
+  render() {
+   return (
+       <div>
+        <form onSubmit={this.handleSubmit}>
+          <input type='text'
+                 onChange={(e) => this.setState({ text: e.target.value} )}
+              />
+        </form>
+         {this.state.list.map((todo, i) => <li key={i}>{todo}</li>)}
+       </div>
+   )
   }
-  // const getItem = event => {
-  //   localStorage.getItem('todoLocalStorage');
-  // }
-  console.log('text',todo.text)
-  console.log('item',todo.item)
-  return (
-    <div className="App">
-      <form onSubmit={onSubmit}>
-        <input type="text" value={todo.text} onChange={(e) =>setTodo({ text: e.target.value})} />
-      </form>
-
-    </div>
-  );
 }
 
 export default App;
