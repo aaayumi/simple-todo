@@ -32,15 +32,17 @@ import React, { useState }from 'react';
 // }
 
 function App (){
-  const [todo, setTodo] = useState("")
+  const [todo, setTodo] = useState()
   const [list, setList] = useState([])
 
-  const handleSubmit =(e)=>{
+  const handleSubmit =(e)=> {
     e.preventDefault();
     setList([todo, ...list]);
   }
-  const toggleTodo = id=> {
-     console.log(id)
+  const toggleTodo = i => {
+    list.map((list) =>  list.text === i ? setList([setTodo({completed: true}), ...list]) : false)
+     //   list[i] === i ? console.log('h'): console.log('d') )'
+    console.log('list',list)
   }
     return(
    <div>
@@ -50,7 +52,7 @@ function App (){
             />
    </form>
      {list.map((todo, i) => <li key={i}
-     onClick={toggleTodo(i)}
+     onClick={() => toggleTodo(todo.text)}
      >{todo.text}</li>)}
    </div>
     )
